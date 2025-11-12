@@ -35,3 +35,50 @@ class FacebookClient (SocialMediaBase):
             if media_path:
                 #upload photo with caption
                 url = f"{self.base_url}/{self.page_id}/photos"
+
+                with open('media_path', 'rb') as image_file:
+                    files = {'source': image_file}
+                    data = {
+                        'message': text,
+                        'access_token': self.access_token
+                    }
+                response = requests.post(url, data=data)
+
+            response.raise_for_status()
+            result = response.json
+            post_id = result.get('id') or result.get('post_id')
+
+            self.daily_count+= 1
+            logger.info(f"Fcebook post published: {post_id} ({self.daily_count}/{self.daily_limit})")
+            log_activity('facebook', 'success', f'Post ID: {post_id}')
+            return post_id
+        except Exception as e:
+            logger.error(f"Facbook post failed:{e}")
+            log_activity('facebook', 'Failed', str(e))
+            return None
+        
+    def get_metrics(self, post_id):
+        #Post metrics
+        try:
+            url = f"{self.base_url}/{post_id}"
+            params = {
+                'fields': 'likes.summary(true), comments.summary(true), shares',
+                'access_token': self.access_token
+            }
+
+            response = requests.get(url, params=params)
+            response.raise_for_status()
+            data = response.json()
+
+            metrics = {
+                'likes': data.get('likes', {}).get('summary', {}).get('total_count', 0),
+                'comments': data.get('comments', {}).get('summary', {}).get('total_count', 0),
+                'shares': data.get('shares', {}).get('count', 0)
+            }
+
+            logger.info(f"Facebook post {post_id} metrics: {metrics}")
+            return metrics
+        
+        except Exception as e:
+            logger.error(f"Failed to get Facebook metrics for {post_id}: {e}")
+            return None
