@@ -50,3 +50,49 @@ class InstagramClient(SocialMediaBase):
                 log_activity('Instagram', 'Success', f'Post ID:{post_id}')
 
                 return post_id
+        except Exception as e:
+            logger.error(f"Instagram post failed: {e}")
+            log_activity('Instagram', 'Failed', str(e))
+            return None
+        
+    def _create_media_container(self, caption, media_path):
+        url=f"{self.base_url}/{self.account_id}/media"
+
+        #Image. Video requires different params
+        data={
+            'image_url': media_path, #Must be publicly accessible url
+            'caption': caption,
+            'access_token': self.access_token
+        }
+        response = requests.post(url, data=data)
+        response.raise_for_status()
+        result= response.json
+        
+        return result.get('id')
+    
+    def get_metrics(self, post_id):
+        
+        try:
+            url=f"{self.base_url}/{post_id}/insights"
+            params={
+                'metric': "engagement,impressions,reach,saved",
+                'access_token':self.access_token
+            }
+
+            response=requests.get(url, params=params)
+            response.raise_for_status()
+            data=response.json()
+
+            metrics={}
+            for item in data.get('data',[]):
+                metrics[item['name']]=item['values'][0]['value']
+
+            logger.info(f"Instagram post {post_id} metrics: {metrics}")
+            return metrics
+        
+        except Exception as e:
+            logger.error(f"Failed to get Instagram metrics for {post_id}: {e}")
+            return None
+            
+
+        
