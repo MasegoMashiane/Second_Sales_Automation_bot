@@ -30,7 +30,7 @@ class EmailClient:
                 server.login(self.sender, self.password)
                 server.send_message(msg)
 
-                self.daily_coun += 1
+                self.daily_count += 1
                 logger.info(f"Email sent to {to_email} ({self.daily_count}/{self.daily_limit})")
                 log_activity('Email', 'success', f'To: {to_email}, Subject: {subject} ')
                 return True

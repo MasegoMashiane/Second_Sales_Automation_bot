@@ -54,3 +54,7 @@ class Config:
         missing = [key for key in required if not getattr(cls, key)]
         if missing:
             raise ValueError(f"Missing required config: {','.join(missing)}")
+
+
+#Custom validation logic on configuation values, after they're loaded but before
+#they are used
