@@ -19,12 +19,11 @@ System Features
 
 Project Folder Structure
 
-
 sales-automation/
 config/              Configuration and credentials
     __init__.py
-    credentials.json
-    settings.py
+    credentials.json    Google sheets API credentials
+    settings.py         All configuration variables
 src/                 Source code
    database/        Google Sheets integration
    email/           Email client and templates
@@ -36,25 +35,25 @@ src/                 Source code
        scheduler.py
 data/                Logs and data files
     logs/
-       activity.csv
-       automation.log
+       activity.csv     CSV activity log
+       automation.log   Main log file
     templates/
         sales_leads_template.csv
         social_posts_template.csv
 tests/               Unit tests
     __inti__.py
-    conftest.py       testing configurations and credentials
+    conftest.py       pytest fixtures testing configurations and credentials
+
     test_campaigns.py    
     test_email.py
     test_social.py
 scripts/
-    generate_example_data.py        Mock Data for testing
-    setup.py
-    test_connections.py
+    generate_example_data.py        Mock sheets Data
+    setup.py                        setup and installation script
+    test_connections.py             testing API connections
 main.py              Main entry point
 run_scheduler.py     Scheduled automation
 requirements.txt
-
 
 
 Setup Instructions
@@ -84,7 +83,6 @@ Media Content Sheet:
 | Date | Time | Platform | Text | Media | Hashtags | Status | Posted Time | Post ID |
 
 
-
 Usage:
 To run Individual Campaigns
 Run sales campaign
@@ -102,7 +100,6 @@ python main.py
 Run Scheduled Automation
 python run_scheduler.py
 
-
 This will run:
 ... can be changed to whatever time of your choice based on analytics
 Sales campaigns daily at 9 AM
@@ -110,7 +107,51 @@ Social posts every 30 minutes
 Metrics collection daily at 6 PM
 
 Testing
-python -m pytest tests/
+
+Install Test Dependencies:
+pip install -r requirements.txt
+
+Run All Tests:
+pytest
+
+Run Tests with Coverage:
+pytest --cov=src --cov-report=html --cov-report=term-missing
+
+Run Specific Test Files:
+Test email functionality
+pytest tests/test_email.py
+
+Test social media clients:
+pytest tests/test_social.py
+
+Test campaigns:
+pytest tests/test_campaigns.py
+
+Test Google Sheets manager:
+pytest tests/test_sheets_manager.py
+
+Run integration tests:
+pytest tests/test_integration.py
+
+Run Tests by Marker:
+un only unit tests
+pytest -m unit
+
+Run only integration tests:
+pytest -m integration
+
+Skip slow tests:
+pytest -m "not slow"
+
+View Coverage Report:
+After running tests with coverage, open `htmlcov/index.html` in your browser to see detailed coverage report.
+
+Writing New Tests:
+1. Add test file in `tests/` directory with `test_` prefix
+2. Import fixtures from `conftest.py`
+3. Use mocks to avoid hitting real APIs
+4. Follow existing test patterns
+
 
 Logs
 All activity is logged to:
