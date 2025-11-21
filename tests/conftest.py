@@ -120,7 +120,7 @@ def mock_instagram_client(mocker):
     return mock
 
 @pytest.fixture
-def mock_instagram_client(mocker):
+def mock_instagram_client_analytics(mocker):
     mock = mocker.Mock()
     mock.post.return_value = 'test_ig_post_456'
     mock.get_metrics.return_value = {'engagement':100, 'impressions':500}
