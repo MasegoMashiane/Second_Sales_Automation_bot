@@ -6,7 +6,6 @@ Sales Automation
 - Automated follow-up scheduling
 
 Social Media Automation
-- Twitter/X posting with media
 - Schedule posts from Google Sheets
 - Engagement metrics tracking
 - Multi-platform ready (Instagram, LinkedIn)
