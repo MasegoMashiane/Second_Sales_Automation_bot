@@ -1,6 +1,6 @@
 #Main entry point
 
-from config import Config
+from Config import Config
 from src.campaigns.sales_campaign import SalesCampaign
 from src.campaigns.social_campaign import SocialCampaign
 from src.utils.logger import logger

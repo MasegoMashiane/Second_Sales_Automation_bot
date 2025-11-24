@@ -50,8 +50,8 @@ class TestEndToEndSocialCampaign:
         now = datetime.now()
         posts = [
             {
-                'Date': now.strftime(),
-                'Time': now.strftime(),
+                'Date': now.strftime('%Y-%m-%d'),
+                'Time': now.strftime('%H:%M'),
                 'Platform': 'Facebook',
                 'Text': 'Test post',
                 'Media': '',

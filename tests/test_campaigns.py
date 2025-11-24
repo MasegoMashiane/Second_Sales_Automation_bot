@@ -10,11 +10,22 @@ class TestSalesCampaign:
     @patch('src.campaigns.sales_campaign.EmailClient')
     def test_init(self, mock_email, mock_sheets, sample_lead):
         campaign = SalesCampaign()
+
+        assert campaign.sheets is not None
+        assert campaign.email is not None
+
+  
+    @patch('src.campaigns.sales_campaign.SheetsManager')
+    @patch('src.campaigns.sales_campaign.EmailClient')
+    def test_contacted_today(self, moock_email, mock_sheets, sample_lead):
+        campaign = SalesCampaign()
+
         assert campaign._Contacted_today(sample_lead) is False
 
         sample_lead['Status'] = 'Contacted'
         sample_lead['Last Contact'] = datetime.now().isoformat()
         assert campaign._Contacted_today(sample_lead) is True
+
 
     @patch('src.campaigns.sales_campaign.SheetsManager')
     @patch('src.campaigns.sales_campaign.EmailClient')
@@ -37,12 +48,23 @@ class TestSalesCampaign:
 
 class TestSocialCampaign:
 
+
+
     @patch('src.campaigns.social_campaign.SheetsManager')
     @patch('src.campaigns.social_campaign.FacebookClient')
     @patch('src.campaigns.social_campaign.InstagramClient')
     def test_init(self, mock_ig, mock_fb, mock_sheets):
         campaign = SocialCampaign()
 
+        assert campaign.sheets is not None
+        assert campaign.facebook is not None
+        assert campaign.instagram is not None
+
+    @patch('src.campaigns.social_campaign.SheetsManager')
+    @patch('src.campaigns.social_campaign.FacebookClient')
+    @patch('src.campaigns.social_campaign.InstagramClient')
+    def test_is_time_to_post(self, mock_ig, mock_fb, mock_sheets):
+        campaign = SocialCampaign()
         #current time post
         now = datetime.now()
         post = {
