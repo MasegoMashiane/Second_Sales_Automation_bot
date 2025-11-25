@@ -1,4 +1,5 @@
 import time
+import logging
 from datetime import datetime
 from src.database.sheets_manager import SheetsManager
 from src.email.email_client import EmailClient
@@ -14,12 +15,12 @@ class SalesCampaign:
 
     def run(self):
         #Execution of sales campaigns
-        logger.info("=== Starting Sales Campaign ===")
+        logging.info("=== Starting Sales Campaign ===")
         leads = self.sheets.get_sales_leads()
 
         for i, lead in enumerate(leads):
             #Skip if contacted today
-            if self._contacted_today(lead):
+            if self._Contacted_today(lead):
                 continue
 
             stage = int(lead.get('stage', 0))
@@ -43,18 +44,17 @@ class SalesCampaign:
 
             if success:
                 self.sheets.update_lead_status(i+2, 'contacted', i+1)
-                logger.info(f"Sent stage {stage} email to {lead['Name']}")
+                logging.info(f"Sent stage {stage} email to {lead['Name']}")
 
             time.sleep(10)
 
-        logger.info("=== Sales Campaign Complete ===")
-
+        logging.info("=== Sales Campaign Complete ===")
     def _Contacted_today(self, lead):
         #Check if lead was contacted today
         if lead.get('Status') != 'Contacted':
             return False
         
-        last_contact = lead.get('last Contact', '')
+        last_contact = lead.get('Last Contact', '')
         if not last_contact:
             return False
         

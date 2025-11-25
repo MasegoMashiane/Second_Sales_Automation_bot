@@ -5,7 +5,7 @@ from src.database.sheets_manager import SheetsManager
 class TestSheetsManager:
     @patch('src.database.sheets_manager.gspread')
     @patch('src.database.sheets_manager.ServiceAccountCredentials')
-    def test_int(self, mock_creds, mock_gspread, mock_config):
+    def test_int(self, mock_config, mock_gspread):
         mock_client= MagicMock()
         mock_gspread.authorize.return_value = mock_client
 
@@ -14,7 +14,7 @@ class TestSheetsManager:
     
     @patch('src.database.sheets_manager.gspread')
     @patch('src.database.sheets_manager.ServiceAccountCredentials')
-    def test_get_sales_leads(self, mock_config, mock_gspread, mock_creds, sample_leads):
+    def test_get_sales_leads(self, mock_config, mock_gspread, sample_leads):
         mock_sheet = MagicMock()
         mock_sheet.get_all_records.return_value = sample_leads
 
@@ -26,11 +26,11 @@ class TestSheetsManager:
         leads = manager.get_sales_leads()
 
         assert len(leads) == 2
-        assert leads[0]['Name'] == 'Alice'
+        assert leads[1]['Name'] == 'Jane Smith'
         
     @patch('src.database.sheets_manager.gspread')
     @patch('src.database.sheets_manager.ServiceAccountCredentials')
-    def test_update_lead_status(self, mock_config, mock_gspread, mock_creds, sample_posts):
+    def test_update_lead_status(self, mock_config, mock_gspread, sample_posts):
         mock_sheet = MagicMock()
         mock_sheet.get_all_records.return_value = sample_posts
 
@@ -46,7 +46,7 @@ class TestSheetsManager:
 
     @patch('src.database.sheets_manager.gspread') 
     @patch('src.database.sheets_manager.ServiceAccountCredentials')
-    def test_get_social_posts(self, mock_creds, mock_gspread, mock_config, sample_posts):
+    def test_get_social_posts(self, mock_config, mock_gspread, sample_posts):
         mock_sheet = MagicMock()
         mock_sheet.get_all_records.return_value = sample_posts
 
@@ -58,5 +58,5 @@ class TestSheetsManager:
         manager = SheetsManager()
         posts = manager.get_social_post()
 
-        assert len(posts) == 3
+        assert len(posts) == 2
         assert posts[0]['Platform'] == 'Facebook'

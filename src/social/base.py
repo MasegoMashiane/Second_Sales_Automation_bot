@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from src.utils.logger import logger
+import logging
 
 class SocialMediaBase(ABC):
     #base class for social media clients
@@ -8,20 +9,20 @@ class SocialMediaBase(ABC):
         self.daily_count = 0
         self.daily_limit = 0
 
-        @abstractmethod
-        def post(self, text, media_path=None):
-            pass
+    @abstractmethod
+    def post(self, text, media_path=None):
+        pass
 
-        def check_limit(self):
-            if self.daily_count>=self.daily_limit:
-                logger.warning(f"{self.platform_name} daily limit reached ({self.daily_limit})")
-                return False
-            return True
-        
-        def reset_daily_count(self):
-            self.daily_count = 0
-            logger.info(f"{self.platform_name} counter reset")
+    def check_limit(self):
+        if self.daily_count>=self.daily_limit:
+            logging.warning(f"{self.platform_name} daily limit reached ({self.daily_limit})")
+            return False
+        return True
+    
+    def reset_daily_count(self):
+        self.daily_count = 0
+        logging.info(f"{self.platform_name} counter reset")
 
-            #ENFORCING POLYMORPHISM FOR THE DIFFERENT PLATFORMS BEING INTERACTED WITH
+        #ENFORCING POLYMORPHISM FOR THE DIFFERENT PLATFORMS BEING INTERACTED WITH
 
             

@@ -2,7 +2,7 @@ import logging
 import csv
 from datetime import datetime
 from pathlib import Path
-from config import Config
+from Config import Config
 
 def setup_logger():
     #setting up application logger

@@ -17,7 +17,7 @@ class TestSalesCampaign:
   
     @patch('src.campaigns.sales_campaign.SheetsManager')
     @patch('src.campaigns.sales_campaign.EmailClient')
-    def test_contacted_today(self, moock_email, mock_sheets, sample_lead):
+    def test_contacted_today(self, mock_email, mock_sheets, sample_lead):
         campaign = SalesCampaign()
 
         assert campaign._Contacted_today(sample_lead) is False
@@ -115,4 +115,4 @@ class TestSocialCampaign:
         metrics = campaign.collect_metrics()
 
         #Verify
-        assert mock_sheets_instance.get_social_posts.called
+        assert mock_sheets_instance.get_social_post.called

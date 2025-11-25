@@ -16,7 +16,7 @@ os.environ['LINKEDIN_PERSON_URN'] = 'test_person_urn'
 
 @pytest.fixture
 def mock_config():
-    from config import Config
+    from Config import Config
     Config.LOGS_DIR.mkdir(parents=True, exist_ok=True)
     return Config
 

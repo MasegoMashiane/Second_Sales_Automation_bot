@@ -1,6 +1,7 @@
 import requests
 import time
-from config import Config
+import logging
+from Config import Config
 from src.utils.logger import logger, log_activity
 from .base import SocialMediaBase
 
@@ -15,21 +16,21 @@ class InstagramClient(SocialMediaBase):
         self.base_url = 'https://graph.facebook.com/v18.0'
 
         if self.access_token and self.account_id:
-            logger.info("Instagram client initialized")
+            logging.info("Instagram client initialized")
         else:
-            logger.warning(f"Instagram credentials not configured")
+            logging.warning(f"Instagram credentials not configured")
     
     def post(self, text, media_path=None):
         #Post to Insta require media, it doesn't support text only posts
         if not self.access_token or not self.account_id:
-            logger.error("Instagram not configured")
+            logging.error("Instagram not configured")
             return None
         
         if not self.check_limit():
             return None
         
         if not media_path:
-            logger.error("Instagram requires media(image or video)")
+            logging.error("Instagram requires media(image or video)")
             return None
         
         try:
@@ -46,12 +47,12 @@ class InstagramClient(SocialMediaBase):
 
             if post_id:
                 self.daily_count+=1
-                logger.info(f"Instagram post published: {post_id}({self.daily_count}/{self.daily_limit})")
+                logging.info(f"Instagram post published: {post_id}({self.daily_count}/{self.daily_limit})")
                 log_activity('Instagram', 'Success', f'Post ID:{post_id}')
 
                 return post_id
         except Exception as e:
-            logger.error(f"Instagram post failed: {e}")
+            logging.error(f"Instagram post failed: {e}")
             log_activity('Instagram', 'Failed', str(e))
             return None
         
@@ -87,11 +88,11 @@ class InstagramClient(SocialMediaBase):
             for item in data.get('data',[]):
                 metrics[item['name']]=item['values'][0]['value']
 
-            logger.info(f"Instagram post {post_id} metrics: {metrics}")
+            logging.info(f"Instagram post {post_id} metrics: {metrics}")
             return metrics
         
         except Exception as e:
-            logger.error(f"Failed to get Instagram metrics for {post_id}: {e}")
+            logging.error(f"Failed to get Instagram metrics for {post_id}: {e}")
             return None
             
 

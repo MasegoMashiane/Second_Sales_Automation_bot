@@ -1,7 +1,8 @@
 import gspread
+import logging
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
-from config import Config
+from Config import Config
 from src.utils.logger import logger
 
 class SheetsManager:
@@ -23,9 +24,9 @@ class SheetsManager:
                 Config.GOOGLE_SHEETS_CREDENTIALS, scope
             )
             self.client = gspread.authorize(creds)
-            logger.info("Connected to Google Sheets")
+            logging.info("Connected to Google Sheets")
         except Exception as e:
-            logger.error(f"Failed to connect to Google Sheets: {e}")
+            logging.error(f"Failed to connect to Google Sheets: {e}")
             raise
 
 
@@ -36,7 +37,7 @@ class SheetsManager:
             return sheet.get_all_records()
         
         except Exception as e:
-            logger.error(f"Error reading sales leads: {e}")
+            logging.error(f"Error reading sales leads: {e}")
             return []
 
 
@@ -50,11 +51,11 @@ class SheetsManager:
             sheet.update_cell(row_num, 6, datetime.now().isoformat())
             if stage is not None:
                 sheet.update_cell(row_num, 7, stage)
-            logger.info(f"Updating lead row {row_num} was succesful")
+            logging.info(f"Updating lead row {row_num} was succesful")
             return True
         
         except Exception as e:
-            logger.error(f"Error Updating lead: {e}")
+            logging.error(f"Error Updating lead: {e}")
             return False
         
 
@@ -66,7 +67,7 @@ class SheetsManager:
             return sheet.get_all_records()
         
         except Exception as e:
-            logger.error(f"Error reading social posts: {e}")
+            logging.error(f"Error reading social posts: {e}")
             return []
         
     def mark_post_as_sent(self, row_num, platform, post_id=None):
@@ -77,9 +78,9 @@ class SheetsManager:
             sheet.update_cell(row_num, datetime.now().isoformat)
             if post_id:
                 sheet.update_cell(row_num, 9, post_id)
-            logger.info(f"Marked post row {row_num} as sent on {platform}")
+            logging.info(f"Marked post row {row_num} as sent on {platform}")
             return True
         
         except Exception as e:
-            logger.info(f"Error marking post as sent: {e}")
+            logging.error(f"Error marking post as sent: {e}")
             return False

@@ -1,7 +1,8 @@
 import smtplib
+import logging
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from config import Config
+from Config import Config
 from src.utils.logger import logger, log_activity
 from .templates import EmailTemplates
 
@@ -16,7 +17,7 @@ class EmailClient:
 
     def send(self, to_email, subject, body_html):
         if self.daily_count>=self.daily_limit:
-            logger.warning(f"Daily limit reached ({self.daily_limit})")
+            logging.warning(f"Daily limit reached ({self.daily_limit})")
             return False
             
         msg = MIMEMultipart('alternative')
@@ -31,15 +32,15 @@ class EmailClient:
                 server.send_message(msg)
 
                 self.daily_count += 1
-                logger.info(f"Email sent to {to_email} ({self.daily_count}/{self.daily_limit})")
+                logging.info(f"Email sent to {to_email} ({self.daily_count}/{self.daily_limit})")
                 log_activity('Email', 'success', f'To: {to_email}, Subject: {subject} ')
                 return True
             
         except Exception as e:
-            logger.error(f'Email failed to {to_email}: {e}')
+            logging.error(f'Email failed to {to_email}: {e}')
             log_activity('Email', 'failed', f'{to_email} - {str(e)}')
             return False
         
     def reset_daily_count(self):
         self.daily_count = 0
-        logger.info("Email counter reset")
+        logging.info("Email counter reset")

@@ -1,5 +1,6 @@
 import requests
-from config import Config
+import logging
+from Config import Config
 from src.utils.logger import logger, log_activity
 from .base import SocialMediaBase
 
@@ -14,14 +15,15 @@ class FacebookClient (SocialMediaBase):
         self.base_url='https://graph.facebook.com/v18.0'
 
         if self.access_token and self.page_id:
-            logger.info("Facebook Client Initialized")
+            logging.info("Facebook Client Initialized")
         else:
-            logger.warning("Facebook credentials not configured")
+            logging.warning("Facebook credentials not configured")
 
     def post(self, text, media_path=None):
         #Post to Facebook Page
+        response = None
         if not self.access_token or not self.page_id:
-            logger.error("Facebook not configured")
+            logging.error("Facebook not configured")
             return None
         if not self.check_limit():
             return None
@@ -36,24 +38,31 @@ class FacebookClient (SocialMediaBase):
                 #upload photo with caption
                 url = f"{self.base_url}/{self.page_id}/photos"
 
-                with open('media_path', 'rb') as image_file:
+                with open(media_path, 'rb') as image_file:
                     files = {'source': image_file}
                     data = {
                         'message': text,
                         'access_token': self.access_token
                     }
+                response = requests.post(url, data=data, files=files)
+            else:
+            # Normal text post
+                data = {
+                    "message": text,
+                    "access_token": self.access_token,
+                }
                 response = requests.post(url, data=data)
-
+                
             response.raise_for_status()
-            result = response.json
+            result = response.json()
             post_id = result.get('id') or result.get('post_id')
 
             self.daily_count+= 1
-            logger.info(f"Fcebook post published: {post_id} ({self.daily_count}/{self.daily_limit})")
+            logging.info(f"Facebook post published: {post_id} ({self.daily_count}/{self.daily_limit})")
             log_activity('facebook', 'success', f'Post ID: {post_id}')
             return post_id
         except Exception as e:
-            logger.error(f"Facbook post failed:{e}")
+            logging.error(f"Facebook post failed:{e}")
             log_activity('facebook', 'Failed', str(e))
             return None
         
@@ -76,9 +85,9 @@ class FacebookClient (SocialMediaBase):
                 'shares': data.get('shares', {}).get('count', 0)
             }
 
-            logger.info(f"Facebook post {post_id} metrics: {metrics}")
+            logging.info(f"Facebook post {post_id} metrics: {metrics}")
             return metrics
         
         except Exception as e:
-            logger.error(f"Failed to get Facebook metrics for {post_id}: {e}")
+            logging.error(f"Failed to get Facebook metrics for {post_id}: {e}")
             return None

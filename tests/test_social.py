@@ -98,7 +98,7 @@ class TestFacebookClient:
 
         assert metrics['likes'] == 10
         assert metrics['comments'] == 5
-        assert metrics['shares '] == 2
+        assert metrics['shares'] == 2
 
 class TestInstagramClient:
     def Test_init(self, mock_config):

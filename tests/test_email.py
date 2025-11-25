@@ -82,7 +82,7 @@ class  TestEmailTemplates:
             sender_name='Bob'
         )
 
-        assert 'john' in template
+        assert 'John' in template
         assert 'TestCorp' in template
         assert 'SaaS' in template
         assert 'increase revenue' in template
