@@ -47,7 +47,7 @@ class Config:
     def validate(cls):
         #validating required configuration
         required = [
-            'Email_ADDRESS',
+            'EMAIL_ADDRESS',
             'EMAIL_PASSWORD',
             'GOOGLE_SHEETS_CREDENTIALS'
         ]
