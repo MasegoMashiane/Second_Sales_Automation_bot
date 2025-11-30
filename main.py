@@ -1,7 +1,5 @@
 #Main entry point
-
 from Config import Config
-import logging
 from src.campaigns.sales_campaign import SalesCampaign
 from src.campaigns.social_campaign import SocialCampaign
 from src.utils.logger import logger
@@ -12,7 +10,7 @@ def run_sales():
         campaign = SalesCampaign()
         campaign.run()
     except Exception as e:
-        logging.error(f"Sales campaign error: {e}")
+        logger.error(f"Sales campaign error: {e}")
 
 def run_social():
     #run social media campaign
@@ -20,7 +18,7 @@ def run_social():
         campaign = SocialCampaign()
         campaign.run()
     except Exception as e:
-        logging.error(f"Social campaign error: {e}")
+        logger.error(f"Social campaign error: {e}")
 
 def collect_metrics():
     #Collecting social media metrics
@@ -28,7 +26,7 @@ def collect_metrics():
         campaign = SalesCampaign()
         campaign.collect_metrics()
     except Exception as e:
-        logging.error(f"Metrics collection error: {e}")
+        logger.error(f"Metrics collection error: {e}")
 
 if __name__ == "__main__":
     import sys
@@ -36,7 +34,7 @@ if __name__ == "__main__":
     try:
         Config.validate()
     except ValueError as e:
-        logging.error(f"Configuration error: {e}")
+        logger.error(f"Configuration error: {e}")
         sys.exit(1)
     
     Config.LOGS_DIR.mkdir(parents=True, exist_ok=True)

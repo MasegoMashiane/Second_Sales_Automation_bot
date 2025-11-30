@@ -15,13 +15,13 @@ class SocialMediaBase(ABC):
 
     def check_limit(self):
         if self.daily_count>=self.daily_limit:
-            logging.warning(f"{self.platform_name} daily limit reached ({self.daily_limit})")
+            logger.warning(f"{self.platform_name} daily limit reached ({self.daily_limit})")
             return False
         return True
     
     def reset_daily_count(self):
         self.daily_count = 0
-        logging.info(f"{self.platform_name} counter reset")
+        logger.info(f"{self.platform_name} counter reset")
 
         #ENFORCING POLYMORPHISM FOR THE DIFFERENT PLATFORMS BEING INTERACTED WITH
 

@@ -24,9 +24,9 @@ class SheetsManager:
                 Config.GOOGLE_SHEETS_CREDENTIALS, scope
             )
             self.client = gspread.authorize(creds)
-            logging.info("Connected to Google Sheets")
+            logger.info("Connected to Google Sheets")
         except Exception as e:
-            logging.error(f"Failed to connect to Google Sheets: {e}")
+            logger.error(f"Failed to connect to Google Sheets: {e}")
             raise
 
 
@@ -37,7 +37,7 @@ class SheetsManager:
             return sheet.get_all_records()
         
         except Exception as e:
-            logging.error(f"Error reading sales leads: {e}")
+            logger.error(f"Error reading sales leads: {e}")
             return []
 
 
@@ -51,11 +51,11 @@ class SheetsManager:
             sheet.update_cell(row_num, 6, datetime.now().isoformat())
             if stage is not None:
                 sheet.update_cell(row_num, 7, stage)
-            logging.info(f"Updating lead row {row_num} was succesful")
+            logger.info(f"Updating lead row {row_num} was succesful")
             return True
         
         except Exception as e:
-            logging.error(f"Error Updating lead: {e}")
+            logger.error(f"Error Updating lead: {e}")
             return False
         
 
@@ -67,7 +67,7 @@ class SheetsManager:
             return sheet.get_all_records()
         
         except Exception as e:
-            logging.error(f"Error reading social posts: {e}")
+            logger.error(f"Error reading social posts: {e}")
             return []
         
     def mark_post_as_sent(self, row_num, platform, post_id=None):
@@ -78,9 +78,9 @@ class SheetsManager:
             sheet.update_cell(row_num, datetime.now().isoformat)
             if post_id:
                 sheet.update_cell(row_num, 9, post_id)
-            logging.info(f"Marked post row {row_num} as sent on {platform}")
+            logger.info(f"Marked post row {row_num} as sent on {platform}")
             return True
         
         except Exception as e:
-            logging.error(f"Error marking post as sent: {e}")
+            logger.error(f"Error marking post as sent: {e}")
             return False

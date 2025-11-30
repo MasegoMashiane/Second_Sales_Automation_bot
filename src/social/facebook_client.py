@@ -15,15 +15,15 @@ class FacebookClient (SocialMediaBase):
         self.base_url='https://graph.facebook.com/v18.0'
 
         if self.access_token and self.page_id:
-            logging.info("Facebook Client Initialized")
+            logger.info("Facebook Client Initialized")
         else:
-            logging.warning("Facebook credentials not configured")
+            logger.warning("Facebook credentials not configured")
 
     def post(self, text, media_path=None):
         #Post to Facebook Page
         response = None
         if not self.access_token or not self.page_id:
-            logging.error("Facebook not configured")
+            logger.error("Facebook not configured")
             return None
         if not self.check_limit():
             return None
@@ -58,11 +58,11 @@ class FacebookClient (SocialMediaBase):
             post_id = result.get('id') or result.get('post_id')
 
             self.daily_count+= 1
-            logging.info(f"Facebook post published: {post_id} ({self.daily_count}/{self.daily_limit})")
+            logger.info(f"Facebook post published: {post_id} ({self.daily_count}/{self.daily_limit})")
             log_activity('facebook', 'success', f'Post ID: {post_id}')
             return post_id
         except Exception as e:
-            logging.error(f"Facebook post failed:{e}")
+            logger.error(f"Facebook post failed:{e}")
             log_activity('facebook', 'Failed', str(e))
             return None
         
@@ -85,9 +85,9 @@ class FacebookClient (SocialMediaBase):
                 'shares': data.get('shares', {}).get('count', 0)
             }
 
-            logging.info(f"Facebook post {post_id} metrics: {metrics}")
+            logger.info(f"Facebook post {post_id} metrics: {metrics}")
             return metrics
         
         except Exception as e:
-            logging.error(f"Failed to get Facebook metrics for {post_id}: {e}")
+            logger.error(f"Failed to get Facebook metrics for {post_id}: {e}")
             return None

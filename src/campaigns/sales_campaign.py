@@ -15,7 +15,7 @@ class SalesCampaign:
 
     def run(self):
         #Execution of sales campaigns
-        logging.info("=== Starting Sales Campaign ===")
+        logger.info("=== Starting Sales Campaign ===")
         leads = self.sheets.get_sales_leads()
 
         for i, lead in enumerate(leads):
@@ -44,11 +44,11 @@ class SalesCampaign:
 
             if success:
                 self.sheets.update_lead_status(i+2, 'contacted', i+1)
-                logging.info(f"Sent stage {stage} email to {lead['Name']}")
+                logger.info(f"Sent stage {stage} email to {lead['Name']}")
 
             time.sleep(10)
 
-        logging.info("=== Sales Campaign Complete ===")
+        logger.info("=== Sales Campaign Complete ===")
     def _Contacted_today(self, lead):
         #Check if lead was contacted today
         if lead.get('Status') != 'Contacted':

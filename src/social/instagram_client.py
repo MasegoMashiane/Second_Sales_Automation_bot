@@ -16,21 +16,21 @@ class InstagramClient(SocialMediaBase):
         self.base_url = 'https://graph.facebook.com/v18.0'
 
         if self.access_token and self.account_id:
-            logging.info("Instagram client initialized")
+            logger.info("Instagram client initialized")
         else:
-            logging.warning(f"Instagram credentials not configured")
+            logger.warning(f"Instagram credentials not configured")
     
     def post(self, text, media_path=None):
         #Post to Insta require media, it doesn't support text only posts
         if not self.access_token or not self.account_id:
-            logging.error("Instagram not configured")
+            logger.error("Instagram not configured")
             return None
         
         if not self.check_limit():
             return None
         
         if not media_path:
-            logging.error("Instagram requires media(image or video)")
+            logger.error("Instagram requires media(image or video)")
             return None
         
         try:
@@ -47,12 +47,12 @@ class InstagramClient(SocialMediaBase):
 
             if post_id:
                 self.daily_count+=1
-                logging.info(f"Instagram post published: {post_id}({self.daily_count}/{self.daily_limit})")
+                logger.info(f"Instagram post published: {post_id}({self.daily_count}/{self.daily_limit})")
                 log_activity('Instagram', 'Success', f'Post ID:{post_id}')
 
                 return post_id
         except Exception as e:
-            logging.error(f"Instagram post failed: {e}")
+            logger.error(f"Instagram post failed: {e}")
             log_activity('Instagram', 'Failed', str(e))
             return None
         
@@ -88,11 +88,11 @@ class InstagramClient(SocialMediaBase):
             for item in data.get('data',[]):
                 metrics[item['name']]=item['values'][0]['value']
 
-            logging.info(f"Instagram post {post_id} metrics: {metrics}")
+            logger.info(f"Instagram post {post_id} metrics: {metrics}")
             return metrics
         
         except Exception as e:
-            logging.error(f"Failed to get Instagram metrics for {post_id}: {e}")
+            logger.error(f"Failed to get Instagram metrics for {post_id}: {e}")
             return None
             
 
