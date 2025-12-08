@@ -39,7 +39,7 @@ def test_main_schedules_and_logs():
     with patch('run_scheduler.schedule.every', side_effect=fake_every) as mock_every, \
          patch('run_scheduler.schedule.run_pending', side_effect=raise_breakloop) as mock_run_pending, \
          patch('run_scheduler.time.sleep') as mock_sleep, \
-         patch('run_scheduler.logging.info') as mock_log:
+         patch('run_scheduler.logger.info') as mock_log:
 
         # Call main and allow BreakLoop to stop the loop
         try:

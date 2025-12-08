@@ -64,7 +64,7 @@ class TestEndToEndSocialCampaign:
         
         # Setup Mocks
         mock_sheets_instance = mock_sheets.return_value
-        mock_sheets_instance.get_social_posts.return_value = posts
+        mock_sheets_instance.get_social_post.return_value = posts
         mock_sheets_instance.mark_post_as_sent.return_value = True
 
         mock_facebook_instance = mock_facebook.return_value
@@ -75,6 +75,6 @@ class TestEndToEndSocialCampaign:
         campaign.run()
 
         #verify
-        assert mock_sheets_instance.get_social_posts.called
+        assert mock_sheets_instance.get_social_post.called
         assert mock_facebook_instance.post.called
         assert mock_sheets_instance.mark_post_as_sent.called

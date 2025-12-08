@@ -1,5 +1,4 @@
 import time
-import logging
 from datetime import datetime
 from src.database.sheets_manager import SheetsManager
 from src.email.email_client import EmailClient

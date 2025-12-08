@@ -1,5 +1,4 @@
 import time
-import logging
 from datetime import datetime
 from src.database.sheets_manager import SheetsManager
 from src.social.facebook_client import FacebookClient
@@ -15,19 +14,19 @@ class SocialCampaign:
 
     def run(self):
         #Executing social media campaign
-        logging.info("=== Starting Social Media Campaign === ")
+        logger.info("=== Starting Social Media Campaign === ")
         posts = self.sheets.get_social_post()
         current_time = datetime.now()
 
         for i, post in enumerate(posts):
-            if posts.get('Status') == 'Posted':
+            if post.get('Status') == 'Posted':
                 continue
 
             if self._is_time_to_post(post, current_time):
                 self._post_content(post, i + 2)
                 time.sleep(2)
 
-            logging.info("=== Social Media Campaign Complete ===")
+            logger.info("=== Social Media Campaign Complete ===")
 
     def _is_time_to_post(self, post, current_time):
         #Check if it is time to post
@@ -56,23 +55,23 @@ class SocialCampaign:
 
         elif platform == 'instagram':
             if not media:
-                logging.error(f"Row {row_num}: Instagram requires media")
+                logger.error(f"Row {row_num}: Instagram requires media")
                 return
             post_id = self.instagram.post(full_text, media)
             platform_name = 'Instagram'
 
         #elif platform =='linkedin':
         else:
-            logging.error(f"Unknown platform: {platform}")
+            logger.error(f"Unknown platform: {platform}")
             return
         
         if post_id:
             self.sheets.mark_post_as_sent(row_num, platform_name, post_id)
-            logging.info(f"Posted to{platform_name}: {text[:50]}...")
+            logger.info(f"Posted to{platform_name}: {text[:50]}...")
 
 
     def collect_metrics(self):
-        logging.info("=== Collecting Social Metrics ===")
+        logger.info("=== Collecting Social Metrics ===")
         posts = self.sheets.get_social_post()
 
         for post in posts:
@@ -89,7 +88,7 @@ class SocialCampaign:
                 #LinkedIn
 
                 if metrics:
-                    logging.info(f"{platform.title()} post{post_id}:{metrics}")
+                    logger.info(f"{platform.title()} post{post_id}:{metrics}")
 
                 time.sleep(1)
 
