@@ -159,3 +159,25 @@ data/logs/activity.csv - Activity summary
 
 Free Tier Limits
 - Gmail: 500 emails/day
+
+
+
+Complete Workflow
+
+User uploads post via UI
+         ↓
+File saved to data/uploads/
+         ↓
+Post data sent to Flask API
+         ↓
+API adds row to Google Sheets
+         ↓
+Bot checks sheets every 30 min
+         ↓
+When scheduled time arrives
+         ↓
+Bot reads media from uploads/
+         ↓
+Bot posts to platform
+         ↓
+Updates sheet: Status = "Posted"
