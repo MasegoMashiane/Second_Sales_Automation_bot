@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Sales & Social Media Automation Desktop App",
   "main": "main.js",
+  "type": "commonjs",
   "scripts": {
     "start": "electron .",
     "dev": "NODE_ENV=development electron .",
@@ -19,14 +20,13 @@
   ],
   "author": "Masego Mashiane",
   "license": "MIT",
-  "type": "module",
   "devDependencies": {
     "cross-env": "^10.1.0",
     "electron": "^27.0.0",
     "electron-builder": "^24.6.4"
   },
   "dependencies": {
-    "axios": "^1.6.0"
+    "axios": "^1.13.2"
   },
   "build": {
     "appId": "com.MotherhoodAfrica.salesautomation",
