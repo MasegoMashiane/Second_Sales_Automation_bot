@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "dev": "cross-env NODE_ENV=development electron .",
+    "dev": "NODE_ENV=development electron .",
     "build": "electron-builder",
     "build:win": "electron-builder --win",
     "build:mac": "electron-builder --mac",
@@ -17,8 +17,9 @@
     "social-media",
     "marketing"
   ],
-  "author": "Your Name",
+  "author": "Masego Mashiane",
   "license": "MIT",
+  "type": "module",
   "devDependencies": {
     "cross-env": "^10.1.0",
     "electron": "^27.0.0",
@@ -28,7 +29,7 @@
     "axios": "^1.6.0"
   },
   "build": {
-    "appId": "com.yourcompany.salesautomation",
+    "appId": "com.MotherhoodAfrica.salesautomation",
     "productName": "Sales Automation",
     "directories": {
       "output": "dist"

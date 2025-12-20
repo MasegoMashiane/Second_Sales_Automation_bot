@@ -2,7 +2,7 @@
 source = src
 omit = 
     */test/*
-    */conftest.py/*
+    */conftest.py
     */__pycache__/*
 
 [report]
@@ -12,4 +12,4 @@ exclude_lines =
     raise AssertionError
     raise NotImplementedError
     if __name__= .__main__. : 
-        @abstractmethod
+    @abstractmethod
