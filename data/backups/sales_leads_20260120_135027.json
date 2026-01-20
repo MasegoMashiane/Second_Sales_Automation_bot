@@ -1,0 +1,38 @@
+[
+  {
+    "Name": "John Doe",
+    "Email": "john@example.com",
+    "Company": "TechCorp",
+    "Industry": "SaaS",
+    "Status": "Pending",
+    "Last Contact": "",
+    "Stage": 0
+  },
+  {
+    "Name": "Jane Smith",
+    "Email": "jane@startup.io",
+    "Company": "StartupX",
+    "Industry": "E-commerce",
+    "Status": "Pending",
+    "Last Contact": "",
+    "Stage": 0
+  },
+  {
+    "Name": "Bob Johnson",
+    "Email": "bob@consulting.com",
+    "Company": "ConsultCo",
+    "Industry": "Consulting",
+    "Status": "Pending",
+    "Last Contact": "",
+    "Stage": 0
+  },
+  {
+    "Name": "Brian Jake",
+    "Email": "jake@mail.com",
+    "Company": "companyY",
+    "Industry": "Freelancing",
+    "Status": "Pending",
+    "Last Contact": "",
+    "Stage": 0
+  }
+]

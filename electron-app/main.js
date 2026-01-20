@@ -1,9 +1,10 @@
 const { app, BrowserWindow, ipcMain, dialog, Notification, Menu } = require("electron");
 const { join, basename, dirname } = require("path");
 const { readFileSync } = require("fs");
-const { get, post } = require("axios");
+const axios = require("axios");
+const { get, post } = axios;
 const { spawn } = require("child_process");
-const { fileURLToPath } = require("url");
+//const { fileURLToPath } = require("url");
 
 //const __filename = fileURLToPath(import.meta.url);
 //const __dirname = dirname(__filename);
@@ -79,11 +80,16 @@ function startApiServer() {
         apiProcess = spawn(pythonPath, [apiScriptPath]);
 
         apiProcess.stdout.on('data', (data) => {
-            console.log(`API: ${data}`);
-            if (data.toString().includes('Running on')) {
-                resolve();
-            }
+            // console.log(`API: ${data}`);
+            // if (data.toString().includes('Running on')) {
+            //     resolve();
+            // }
+            const text = data.toString();
+            console.log(`API: ${text}`);
+            if (text.includes('FLASK_API_READY')|| text.includes('Running on')) {
+            resolve();}
         });
+
         
         apiProcess.stderr.on('data', (data) => {
             console.error(`API Error: ${data}`);

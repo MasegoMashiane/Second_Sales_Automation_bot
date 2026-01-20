@@ -1,11 +1,11 @@
-let API_URL;
+const { ipcRenderer } = window.electron; 
 
+let API_URL;
 //Initialize
 window.addEventListener('DOMContentLoaded', async () => {
     API_URL = await window.electronAPI.getAPIURL();
     loadDashboard();
     loadScheduledPosts();
-
     //Auto-refresh dashboard every 30 seconds
     setInterval(loadDashboard, 30000);
 });
@@ -34,18 +34,24 @@ function switchTab(tabName, event) {
 async function loadDashboard() {
     try {
         const response = await fetch(`${API_URL}/api/quotas`);
+        
+        if (!response.ok){
+        throw new Error(`API Error: ${response.status}`);
+        }
+
         const quotas = await response.json();
+
 
         //update quota displays
         document.getElementById('email-used').textContent = quotas.email.used;
         document.getElementById('email-limit').textContent = quotas.email.limit;
         document.getElementById('fb-used').textContent = quotas.facebook.used;
         document.getElementById('fb-limit').textContent = quotas.facebook.limit;
-        document.getElementById('ig-used').textContent = quotas.instagram.used;
-        document.getElementById('ig-limit').textContent = quotas.instagram.limit;
+        document.getElementById('ig-used').textContent = quotas.Instagram.used;
+        document.getElementById('ig-limit').textContent = quotas.Instagram.limit;
         
         //load recent activities
-        const activitiesResponse = await fetch(`${API_URL}/api/activities/recent?limit=10`);
+        const activitiesResponse = await fetch(`${API_URL}/api/activity/recent?limit=10`);
         const activities = await activitiesResponse.json();
 
         const activitiesList = document.getElementById('recent-activities-list');
@@ -108,7 +114,10 @@ async function loadScheduledPosts() {
 async function startBot() {
     try {
         const result = await window.electronAPI.startBot();
-        await window.electronAPI.showNotification('Bot Started', 'Automation bot is now running');
+        await window.electronAPI.showNotification({
+            title: 'Bot Started',
+            body: 'Automation bot is now running'
+        });
         loadDashboard();
     } catch (error) {
         alert('Error starting bot: ' + error.message);
@@ -161,7 +170,7 @@ function buildUploadForm() {
         <!-- File Upload -->
         <div>
             <label class="block font-medium mb-2">Upload Media</label>
-            <button type="button" onclick="selectedFile()" 
+            <button type="button" onclick="selectFile()" 
                     class="w-full px-4 py-3 border-2 border-dashed rounded-lg hover:border-blue-500 transition-colors">
                 Click to select file
             </button>
@@ -214,8 +223,22 @@ function buildUploadForm() {
 
 let selectedFile = null;
 
+//ifner Mime type to avoid breaks
+function getMimeType(filename) {
+    const ext = filename.split('.').pop().toLowerCase();
+    return{
+        'jpg': 'image/jpeg',
+        'jpeg': 'image/jpeg',
+        'png': 'image/png',
+        'gif': 'image/gif',
+        'mp4': 'video/mp4',
+        'avi': 'video/x-msvideo',
+        'mkv': 'video/x-matroska'
+    }[ext] || 'application/octet-stream';
+}
+
 //File selection
-async function selectedFile() {
+async function selectFile() {
    const file = await window.electronAPI.openFileDialog();
    if (file) {
        selectedFile = file;
@@ -228,7 +251,8 @@ async function selectedFile() {
        previewDiv.classList.remove('hidden');
 
         //Convert base64 to blob URL for preview
-        const blob = base64ToBlob(file.data, 'image/jpeg');
+        let mime = getMimeType(file.name);
+        const blob = base64ToBlob(file.data, mime);
         const blobURL = URL.createObjectURL(blob);
         previewImage.src = blobURL;
 
@@ -270,7 +294,11 @@ async function handleSubmitPost(event) {
             body: formData
         })
 
+        if (!response.ok) {
+            throw new Error(`API Error: ${response.status}`);
+        }
         const result = await response.json();
+
         if(response.ok){
             await window.electronAPI.showNotification('Success', 'Your post has been scheduled successfully');
             hideUploadModal();
@@ -297,3 +325,16 @@ async function deletePost(postId) {
         alert('Error deleting post: ' + error.message);
     }
 };
+
+
+window.showUploadModal = showUploadModal;
+window.hideUploadModal = hideUploadModal;
+window.switchTab = switchTab;
+window.startBot = startBot;
+window.stopBot = stopBot;
+window.backupData = backupData;
+window.selectFile = selectFile;
+window.deletePost = deletePost;
+window.handleSubmitPost = handleSubmitPost;
+window.loadDashboard = loadDashboard;
+window.loadScheduledPosts = loadScheduledPosts;

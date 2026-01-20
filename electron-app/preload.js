@@ -1,4 +1,8 @@
 const { contextBridge, ipcRenderer } = require("electron")
+
+contextBridge.exposeInMainWorld('electron', {
+    ipcRenderer
+});
 //Expose protected methods
 contextBridge.exposeInMainWorld('electronAPI', {
     //File operations
@@ -16,3 +20,4 @@ contextBridge.exposeInMainWorld('electronAPI', {
     backupData: () => ipcRenderer.invoke('backup-data')
 
 });
+
