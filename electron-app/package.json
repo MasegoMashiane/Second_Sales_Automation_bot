@@ -44,13 +44,13 @@
       "target": [
         "nsis"
       ],
-      "icon": "assets/icon.ico"
+      "icon": "assets/Motherhood Africa logo.png"
     },
     "mac": {
       "target": [
         "dmg"
       ],
-      "icon": "assets/icon.icns",
+      "icon": "assets/Motherhood Africa logo.png",
       "category": "public.app-category.productivity"
     },
     "linux": {
@@ -58,7 +58,7 @@
         "AppImage",
         "deb"
       ],
-      "icon": "assets/icon.png",
+      "icon": "assets/Motherhood Africa logo.png",
       "category": "Office"
     }
   }
