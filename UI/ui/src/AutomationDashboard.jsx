@@ -119,6 +119,39 @@ const AutomationDashboard = () => {
     }
   };
 
+  const getPlatformStyle = (platform) => {
+    if (!active){
+      return{
+        borderColor: '#e5e7eb',
+        backgroundColor: '#ffffff ',
+        color: '#111827',
+        boxShadow: 'none',
+        transform: 'scale(1)',
+      }
+    }
+
+    let backgroundColor;
+    switch(platform) {
+      case 'Instagram':
+      backgroundColor = 'linear-gradient(123deg, #833AB4, #FD1D1D, #F77737)';
+      case 'Facebook':
+      backgroundColor = '#1877F2';
+      case 'LinkedIn':
+      backgroundColor = '#0A66C2';
+      default:
+      backgroundColor = '#858585';
+    
+    }
+
+    return {
+      background: backgroundColor,
+      borderColor: 'transparent',
+      color: '#ffffff',
+      boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+      transform: 'scale(1.05)',
+    }
+  }
+
   const QuotaCard = ({ platform, icon: Icon, data }) => {
     const percentage = (data.used / data.limit * 100).toFixed(1);
     const statusColor = percentage > 80 ? '#dc2626' : percentage > 50 ? ' #d97706' : '#10b981';
@@ -178,13 +211,12 @@ const AutomationDashboard = () => {
           </div>
         </div>
 
-        <form onSubmit={handleSubmitPost} className="p-6 space-y-6">
-          {/* Platform Selection */}
+        <form onSubmit={handleSubmitPost} className="formContainer">
           <div>
-            <label className="block text-sm font-bold text-gray-700 mb-3">
-              Platform <span className="text-[#620000]">*</span>
+            <label>
+              Platform <span>*</span>
             </label>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="socialPlatformOptions">
               {['Facebook', 'Instagram', 'LinkedIn'].map(platform => (
                 <button
                   key={platform}
