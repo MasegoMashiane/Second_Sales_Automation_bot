@@ -1,0 +1,155 @@
+@import "tailwindcss";
+
+.cards{
+  background: white;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  transition: all 300ms ease-in-out;
+  padding: 1.5rem;
+  border: 1px solid #e5e7eb;
+  margin-top: 2rem;
+}
+.platformName{
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+.dailyQuota{
+   font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 400;
+  color: #6b7280;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.containerelemets{
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.icon{
+  width: 2rem;
+  height: 2rem;
+  color: white;
+}
+.iconContainer{
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  background: rgb(167, 167, 167)
+}
+
+.percentage{
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+}
+
+.ratioBarContainer{
+  margin-top: 1rem;
+}
+.ratioContainer{
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  color: #6b7280;
+}
+.ratio{
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.bar{
+  width: 100%;
+  background: #f3f4f6;
+  border-radius: 0.75rem;
+  height: 0.75rem;
+  overflow: hidden;
+}
+.fill{
+  height: 0.75rem;
+  border-radius: 0.75rem;
+  transition: width 500ms ease-in-out;
+}
+
+.successFailureContainer{
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #cccccc;
+  margin-top: 1rem;
+}
+.successFailureContainer span{
+  font-weight: 500;
+}
+.success{
+  color: #10b981;
+  font-size: medium;
+}
+.failure{
+  color: #dc2626;
+  font: medium;
+}
+
+
+.uploadSection{
+  display: flex;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+  padding: 1rem;
+}
+.uploadContainer{
+  background: white;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  max-width: 42rem;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.schedulePostContainer{
+  position:sticky;
+  top:0;
+  background: linear-gradient(to right, #620000, #8B0000);
+  color: white;
+  padding: 1.5rem;
+  border-top-left-radius: 1.5rem;
+  border-top-right-radius: 1.5rem;  
+}
+.scheduleitemscontainer{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.scheduleitemscontainer div h2{
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+}
+.scheduleitemscontainer div p{
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  margin-top: 0.25rem;
+  color: rgba(255,255,255,0.8);
+}
+.setShowUploadModal{
+  cursor: pointer;
+  color: rgba(255,255,255,0.8);
+  transition: color 200ms ease-in-out;
+}
