@@ -1,5 +1,146 @@
 @import "tailwindcss";
 
+.DashboardContainer{
+  padding: 2rem;
+  background: #f9fafb;
+  min-height: 100vh;
+} 
+.status-card{
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 15px 25px rgba(0,0,0,0.1),
+              0 4px 6px -2px rgba(0,0,0,0.5);
+
+  margin-bottom: 2rem;
+  
+}
+.status-card.running{
+  background: linear-gradient(to right, #63ffae, #4bff69);
+  border: 2px solid #c8fdeb;
+  color: #037051;
+}
+.status-card.stopped{
+  background: linear-gradient(to right, #f83838, #8d0000);
+  border: 2px solid #fcc5c5;
+  color: #5c0909;
+} 
+.statusBannerContainer{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.statusBannerContent{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.statusIndicatorCheck{
+  padding : 0.75rem;
+  background-color: #10b981;
+  border-radius: 2rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+
+.statusTitle.runningText{
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #065f46;
+}
+.statusTitle.stoppedText{
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #5c0909;
+}
+
+.statusMessage.runningText{
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #065f46;
+}
+.statusMessage.stoppedText{
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #8f2020;
+}
+
+.bot-toggle-button{
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: bold;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: background-color 300ms ease-in-out,
+              box-shadow 300ms ease-in-out,
+              transform 300ms ease-in-out;
+}
+
+.bot-toggle-button{
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: background-color 300ms ease-in-out,
+              box-shadow 300ms ease-in-out,
+              transform 300ms ease-in-out;
+  cursor: pointer;
+}
+.bot-toggle-button:hover{
+  box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
+}
+
+.bot-toggle-button.stopped{
+  background: #c00000;
+  color: white;
+}
+.bot-toggle-button.stopped:hover{
+  background: #e71616;
+  box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
+}
+.bot-toggle-button.running{
+  background: #32d648;
+  color: white;
+}
+.bot-toggle-button.running:hover{
+  background: #3bfc00;
+  box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
+}
+
+
+.quotaCards{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .quotaCards{
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .Emailcard{
+    grid-column: span 2;
+  }
+}
+@media (min-width: 1024px) {
+  .quotaCards{
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .Emailcard{
+    grid-column: span 1;
+  }
+}
+
+
+
 .cards{
   background: white;
   border-radius: 1.5rem;
@@ -21,6 +162,36 @@
   font-weight: 400;
   color: #6b7280;
 }
+
+.cards.Emailcard{
+  background: linear-gradient(to right, #f0d1d1, #ffaeae);
+}
+.cards.Facebookcard{
+  background: #8fbfff;
+}
+.cards.Instagramcard{
+  background: linear-gradient(to right, #833AB4, #FD1D1D, #F77737);
+}
+.cards.LinkedIncard{
+  background: #8aaaca;
+}
+
+.cards.Emailcard,
+.cards.Facebookcard,
+.cards.Instagramcard,
+.cards.LinkedIncard{
+  transition: box-shadow 300ms ease-in-out,
+              transform 300ms ease-in-out;
+}
+.cards.Emailcard:hover,
+.cards.Facebookcard:hover,
+.cards.Instagramcard:hover,
+.cards.LinkedIncard:hover{
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  transform: translateY(-5px);
+}
+
+
 
 .container{
   display: flex;
@@ -94,12 +265,12 @@
   font-weight: 500;
 }
 .success{
-  color: #10b981;
-  font-size: medium;
+  color: #a3da83;
+  font-size: larger;
 }
 .failure{
-  color: #dc2626;
-  font: medium;
+  color: #7e0000;
+  font-size: larger;
 }
 
 
@@ -192,7 +363,7 @@
   font-weight: bold;
   color: grey;
   margin-bottom: 1.05rem;
-  margin-top: 0.5rem;
+  margin-top: 0.95rem;
 }
 
 .uploadContainer{
@@ -222,4 +393,145 @@
 }
 .clickToUploadText:hover{
   color: #db0000;
+}
+
+.caption{
+  display: block;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: bold;
+  color: #374151;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.captionContainer textarea{
+  width: 100%;
+  min-height: 6rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.75rem;
+  padding: 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  resize: vertical;
+}
+
+.captionContainer textarea:focus{
+  outline: none;
+  border-color: #620000;
+  box-shadow: 0 0 0 3px rgba(98,0,0,0.3);
+  border: transparent;
+  resize: none;
+  transition: all;
+}
+
+.captionContainer textarea::placeholder{
+  color: #97999c;
+}
+
+.captionContainer p{
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: #6b7280;
+  margin-top: 0.025rem;
+}
+
+.Hashtags label{
+  display: block;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: bold;
+  color: #374151;
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+.Hashtags input{
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 0.75rem;
+  padding: 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+.Hashtags input:focus{
+  outline: none;
+  border-color: #620000;
+  box-shadow: 0 0 0 3px rgba(98,0,0,0.3);
+  border: transparent;
+  transition: all;
+}
+.Hashtags input::placeholder{
+  color: #97999c;
+}
+
+.scheduleDateTimeContainer{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.scheduleDateTimeContainer label{
+  display: block;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: bold;
+  color: #374151;
+  margin-bottom: 0.5rem;
+  margin-top: 0.75rem;
+}
+.scheduleDateTimeContainer input{
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 0.75rem;
+  padding: 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+.scheduleDateTimeContainer input:focus{
+  outline: none;
+  border-color: #620000;
+  box-shadow: 0 0 0 3px rgba(98,0,0,0.3);
+  border: transparent;
+  transition: all;
+}
+.scheduleDateTimeContainer input::placeholder{
+  color: #97999c;
+}
+
+.submitCancelButtonsContainer{
+  display: flex;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  margin-top: 1.5rem;
+  text-align: right;
+}
+.submitCancelButtonsContainer button{
+  flex: 1;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: bold;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: background-color 5000ms ease-in-out,
+              box-shadow 300ms ease-in-out,
+              transform 300ms ease-in-out;
+}
+.submitCancelButtonsContainer #submitButton{
+  background: linear-gradient(to right, #620000, #da0000);
+  color: white;
+}
+.submitCancelButtonsContainer #submitButton:hover{
+  background: linear-gradient(to right, #da0000, #620000);
+  box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
+}
+.submitCancelButtonsContainer #cancelButton{
+  background: #e5e7eb;
+  color: #374151;
+}
+.submitCancelButtonsContainer #cancelButton:hover{
+  background: #d1d5db;
+  box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
 }

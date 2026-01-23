@@ -15,6 +15,8 @@ const AutomationDashboard = () => {
     file: null,
     filePreview: null
   });
+
+  
   const [scheduledPosts, setScheduledPosts] = useState([
     { id: 1, platform: 'Facebook', caption: 'Check out our new product!', date: '2025-12-08', time: '14:00', status: 'Pending', media: 'product.jpg' },
     { id: 2, platform: 'Instagram', caption: 'Behind the scenes', date: '2025-12-08', time: '16:00', status: 'Pending', media: 'bts.jpg' },
@@ -134,21 +136,19 @@ const AutomationDashboard = () => {
       
       case 'Instagram':
       return{backgroundImage: 'linear-gradient(123deg, #833AB4, #FD1D1D, #F77737)',
-              color: '#a3a3a3',borderColor: 'transparent', color: '#ffffff', boxShadow: '0 10px 15px 3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+              color: '#ffffff',borderColor: 'transparent',boxShadow: '0 10px 15px 3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
               transform: 'scale(1)'
             };
       
       case 'Facebook':
-      return{backgroundColor:'#1877F2',color: '#a3a3a3',borderColor: 'transparent', color: '#ffffff', boxShadow: '0 10px 15px 3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+      return{backgroundColor:'#1877F2',color: '#ffffff',borderColor: 'transparent', boxShadow: '0 10px 15px 3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
               transform: 'scale(1)'};
       
       case 'LinkedIn':
-      return{backgroundColor: '#0A66C2', color: '#a3a3a3',borderColor: 'transparent', color: '#ffffff', boxShadow: '0 10px 15px 3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+      return{backgroundColor: '#0A66C2', color: '#ffffff',borderColor: 'transparent', boxShadow: '0 10px 15px 3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
               transform: 'scale(1)'};
       
       default: backgroundColor = '#858585';
-      
-      console.log(backgroundColor);
     }
   }
 
@@ -157,7 +157,7 @@ const AutomationDashboard = () => {
     const statusColor = percentage > 80 ? '#dc2626' : percentage > 50 ? ' #d97706' : '#10b981';
     
     return (
-      <div className="cards">
+      <div className={`cards ${platform}card`}>
         <div className="container">
           <div className="containerelemets">
             <div className="iconContainer" style={getPlatformColor(platform)}>
@@ -310,69 +310,65 @@ const AutomationDashboard = () => {
           </div>
 
           {/* Caption */}
-          <div>
-            <label className="block text-sm font-bold text-gray-700 mb-3">
+          <div className='captionContainer'>
+            <label className='caption'>
               Caption <span style={{color: '#ff0505'}}>*</span>
             </label>
             <textarea
               value={uploadData.caption}
               onChange={(e) => setUploadData({...uploadData, caption: e.target.value})}
               rows={4}
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#620000] focus:border-transparent resize-none transition-all"
               placeholder="Write your caption here..."
               required
             />
-            <p className="text-sm text-gray-500 mt-2 font-medium">{uploadData.caption.length} characters</p>
+            <p>{uploadData.caption.length} characters</p>
           </div>
 
           {/* Hashtags */}
-          <div>
-            <label className="block text-sm font-bold text-gray-700 mb-3">
+          <div className='Hashtags'>
+            <label>
               Hashtags
             </label>
             <input
               type="text"
               value={uploadData.hashtags}
               onChange={(e) => setUploadData({...uploadData, hashtags: e.target.value})}
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#620000] focus:border-transparent transition-all"
               placeholder="#marketing #business #success"
             />
           </div>
 
           {/* Schedule Date & Time */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="scheduleDateTimeContainer">
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-3">
+              <label>
                 Date <span style={{color: '#ff0505'}}>*</span>
               </label>
               <input
                 type="date"
                 value={uploadData.scheduleDate}
                 onChange={(e) => setUploadData({...uploadData, scheduleDate: e.target.value})}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#620000] focus:border-transparent transition-all"
                 required
                 min={new Date().toISOString().split('T')[0]}
               />
             </div>
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-3">
+              <label>
                 Time <span style={{color: '#ff0505'}}>*</span>
               </label>
               <input
                 type="time"
                 value={uploadData.scheduleTime}
                 onChange={(e) => setUploadData({...uploadData, scheduleTime: e.target.value})}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#620000] focus:border-transparent transition-all"
                 required
               />
             </div>
           </div>
 
           {/* Submit Buttons */}
-          <div className="flex gap-3 pt-4">
+          <div className="submitCancelButtonsContainer">
             <button
               type="submit"
-              className="flex-1 px-6 py-4 bg-gradient-to-r from-[#620000] to-[#8B0000] text-white rounded-xl hover:from-[#8B0000] hover:to-[#620000] font-bold flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+              id='submitButton'
             >
               <Calendar className="w-5 h-5" />
               Schedule Post
@@ -380,9 +376,8 @@ const AutomationDashboard = () => {
             <button
               type="button"
               onClick={() => setShowUploadModal(false)}
-              className="px-6 py-4 border-2 border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 font-bold transition-all"
-            >
-              Cancel
+              id='cancelButton'
+            >Cancel
             </button>
           </div>
         </form>
@@ -391,45 +386,45 @@ const AutomationDashboard = () => {
   );
 
   const DashboardTab = () => (
-    <div className="space-y-6">
+    <div className="DashboardContainer">
       {/* Status Banner */}
-      <div className={`p-6 rounded-2xl shadow-lg ${botStatus === 'running' ? 'bg-gradient-to-r from-emerald-50 to-emerald-100 border-2 border-emerald-200' : 'bg-gradient-to-r from-red-50 to-red-100 border-2 border-red-200'}`}>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
+      <div className={`status-card ${botStatus === 'running' ? 'running': 'stopped'}`}>
+        <div className="statusBannerContainer">
+          <div className="statusBannerContent">
             {botStatus === 'running' ? (
-              <div className="p-3 bg-emerald-500 rounded-xl shadow-lg">
-                <CheckCircle className="w-8 h-8 text-white" />
+              <div className="statusIndicatorCheck">
+                <CheckCircle style={{width: '2rem', height: '2rem', color: '#ffffff'}} />
               </div>
             ) : (
-              <div className="p-3 bg-red-500 rounded-xl shadow-lg">
+              <div style={{padding: '0.75rem', color:'#5a0707' ,backgroundColor: '#ef4444', borderRadius: '2rem', boxShadow: '0 4px 6px rgba(0,0,0,0.1)'}}>
                 <AlertCircle className="w-8 h-8 text-white" />
               </div>
             )}
             <div>
-              <h3 className="text-xl font-bold text-gray-800">
+              <h3 className={`statusTitle ${botStatus === 'running' ? 'runningText' : 'stoppedText'}  `}>
                 Bot Status: {botStatus === 'running' ? 'Running' : 'Stopped'}
               </h3>
-              <p className="text-sm text-gray-600 font-medium">
+              <p className={`statusMessage ${botStatus === 'running' ? 'runningText' : 'stoppedText'}`}>
                 {botStatus === 'running' ? 'All systems operational' : 'Bot is currently stopped'}
               </p>
             </div>
           </div>
           <button
             onClick={() => setBotStatus(botStatus === 'running' ? 'stopped' : 'running')}
-            className={`px-6 py-3 rounded-xl font-bold flex items-center gap-2 shadow-lg hover:shadow-xl transition-all transform hover:scale-105 ${
+            className={`bot-toggle-button ${
               botStatus === 'running' 
-                ? 'bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white' 
-                : 'bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white'
+                ? 'running' 
+                : 'stopped'
             }`}
           >
             {botStatus === 'running' ? (
               <>
-                <PauseCircle className="w-5 h-5" />
+                <PauseCircle style={{width: '1.25rem', height: '1.25rem'}} />
                 Stop Bot
               </>
             ) : (
               <>
-                <PlayCircle className="w-5 h-5" />
+                <PlayCircle style={{width: '1.25rem', height: '1.25rem'}} />
                 Start Bot
               </>
             )}
@@ -438,8 +433,8 @@ const AutomationDashboard = () => {
       </div>
 
       {/* Quota Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <QuotaCard platform="Email" icon={Mail} data={quotaData.email} color="bg-gradient-to-br from-[#620000] to-[#8B0000]" />
+      <div className="quotaCards">
+        <QuotaCard platform="Email" icon={Mail} data={quotaData.email}/>
         <QuotaCard platform="Facebook" icon={Facebook} data={quotaData.facebook} color="bg-[#1877F2]" />
         <QuotaCard platform="Instagram" icon={Instagram} data={quotaData.instagram} color="bg-gradient-to-br from-[#833AB4] via-[#FD1D1D] to-[#F77737]" />
         <QuotaCard platform="LinkedIn" icon={Linkedin} data={quotaData.linkedin} color="bg-[#0A66C2]" />
