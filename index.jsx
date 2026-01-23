@@ -89,9 +89,9 @@ const AutomationDashboard = () => {
 
   const getPlatformIcon = (platform) => {
     switch(platform) {
-      case 'Facebook': return <Facebook className="w-5 h-5" />;
-      case 'Instagram': return <Instagram className="w-5 h-5" />;
-      case 'LinkedIn': return <Linkedin className="w-5 h-5" />;
+      case 'Facebook': return <Facebook />;
+      case 'Instagram': return <Instagram />;
+      case 'LinkedIn': return <Linkedin />;
       default: return null;
     }
   };

@@ -119,36 +119,36 @@ const AutomationDashboard = () => {
     }
   };
 
-  const getPlatformStyle = (platform) => {
+  const getPlatformStyle = (platform, active) => {
     if (!active){
       return{
         borderColor: '#e5e7eb',
-        backgroundColor: '#ffffff ',
-        color: '#111827',
-        boxShadow: 'none',
+        color: '#aab4ca',
+        boxShadow: '2px 5px 7px rgba(0, 0, 0, 0.05)',
         transform: 'scale(1)',
       }
     }
 
     let backgroundColor;
     switch(platform) {
+      
       case 'Instagram':
-      backgroundColor = 'linear-gradient(123deg, #833AB4, #FD1D1D, #F77737)';
+      return{backgroundImage: 'linear-gradient(123deg, #833AB4, #FD1D1D, #F77737)',
+              color: '#a3a3a3',borderColor: 'transparent', color: '#ffffff', boxShadow: '0 10px 15px 3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+              transform: 'scale(1)'
+            };
+      
       case 'Facebook':
-      backgroundColor = '#1877F2';
+      return{backgroundColor:'#1877F2',color: '#a3a3a3',borderColor: 'transparent', color: '#ffffff', boxShadow: '0 10px 15px 3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+              transform: 'scale(1)'};
+      
       case 'LinkedIn':
-      backgroundColor = '#0A66C2';
-      default:
-      backgroundColor = '#858585';
-    
-    }
-
-    return {
-      background: backgroundColor,
-      borderColor: 'transparent',
-      color: '#ffffff',
-      boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-      transform: 'scale(1.05)',
+      return{backgroundColor: '#0A66C2', color: '#a3a3a3',borderColor: 'transparent', color: '#ffffff', boxShadow: '0 10px 15px 3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+              transform: 'scale(1)'};
+      
+      default: backgroundColor = '#858585';
+      
+      console.log(backgroundColor);
     }
   }
 
@@ -214,22 +214,41 @@ const AutomationDashboard = () => {
         <form onSubmit={handleSubmitPost} className="formContainer">
           <div>
             <label>
-              Platform <span>*</span>
+              Platform <span style={{color: '#ff0505'}}>*</span>
             </label>
             <div className="socialPlatformOptions">
+              
+
               {['Facebook', 'Instagram', 'LinkedIn'].map(platform => (
+                
                 <button
+                  id='PlatformButton'
                   key={platform}
                   type="button"
                   onClick={() => setUploadData({...uploadData, platform})}
-                  className={`p-4 border-2 rounded-xl flex flex-col items-center gap-2 transition-all duration-300 ${
-                    uploadData.platform === platform 
-                      ? `${getPlatformColor(platform)} border-transparent text-white shadow-lg transform scale-105` 
-                      : 'border-gray-200 hover:border-[#620000] hover:shadow-md'
-                  }`}
+                  style={{
+                    padding: '1rem',
+                    borderWidth: '2px',
+                    borderStyle: 'solid',
+                    borderRadius: '0.75rem',
+
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+
+                    cursor: 'pointer',
+                    transition: 'all 300s ease',
+
+                    ...getPlatformStyle(uploadData.platform, uploadData.platform === platform),
+          
+                  }}
+                
                 >
+                  
                   {getPlatformIcon(platform)}
                   <span className="font-semibold text-sm">{platform}</span>
+
                 </button>
               ))}
             </div>
@@ -237,33 +256,46 @@ const AutomationDashboard = () => {
 
           {/* File Upload */}
           <div>
-            <label className="block text-sm font-bold text-gray-700 mb-3">
-              Upload Media {uploadData.platform === 'Instagram' && <span className="text-[#620000]">*</span>}
+            <label className="fileUploadLabel">
+              Upload Media {uploadData.platform === 'Instagram' && <span style={{color: '#ff0505'}}>*</span>}
             </label>
-            <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 hover:border-[#620000] transition-colors bg-gray-50">
+            <div className="UploadContainer">
               {uploadData.filePreview ? (
                 <div className="relative">
                   <img 
                     src={uploadData.filePreview} 
                     alt="Preview" 
-                    className="max-h-64 mx-auto rounded-xl shadow-lg"
+                    style={{maxHeight: '64rem', marginLeft: 'auto', marginRight: 'auto', borderRadius: '0.75rem', boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)'}}
+                  
                   />
                   <button
                     type="button"
                     onClick={() => setUploadData({...uploadData, file: null, filePreview: null})}
-                    className="absolute top-2 right-2 p-2 bg-[#620000] text-white rounded-full hover:bg-[#8B0000] shadow-lg transition-colors"
-                  >
-                    <X className="w-4 h-4" />
+
+                    style={{position: 'absolute', 
+                      top: '0.5rem',
+                      right: '0.5rem', 
+                      padding: '0.5rem', 
+                      backgroundColor: '#620000', 
+                      color: '#ffffff', 
+                      borderRadius: '9999px', 
+                      hoverBackgroundColor: '#8B0000', 
+                      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', 
+                      transition: 'background-color 0.3s ease'}}
+                    >
+                    <X style={{width: '1rem', height: '1rem'}} />
                   </button>
                 </div>
               ) : (
-                <div className="text-center">
-                  <Upload className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+                <div className="UploadPlaceholder">
+                  <Upload style={{width: '4rem', height: '4rem', marginLeft: 'auto', marginRight: 'auto', marginBottom: '1rem'}}
+                  />
                   <label className="cursor-pointer">
-                    <span className="text-[#620000] hover:text-[#8B0000] font-bold text-lg">
+                    <span
+                    className="clickToUploadText">
                       Click to upload
                     </span>
-                    <span className="text-gray-600"> or drag and drop</span>
+                    <span style={{color: '#575757'}}> or drag and drop</span>
                     <input
                       type="file"
                       accept="image/*,video/*"
@@ -271,7 +303,7 @@ const AutomationDashboard = () => {
                       className="hidden"
                     />
                   </label>
-                  <p className="text-sm text-gray-500 mt-2">PNG, JPG, MP4 up to 10MB</p>
+                  <p style={{fontSize: '0.875rem', color: '#575757', marginTop: '0.5rem'}}>PNG, JPG, MP4 up to 10MB</p>
                 </div>
               )}
             </div>
@@ -280,7 +312,7 @@ const AutomationDashboard = () => {
           {/* Caption */}
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-3">
-              Caption <span className="text-[#620000]">*</span>
+              Caption <span style={{color: '#ff0505'}}>*</span>
             </label>
             <textarea
               value={uploadData.caption}
@@ -311,7 +343,7 @@ const AutomationDashboard = () => {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-bold text-gray-700 mb-3">
-                Date <span className="text-[#620000]">*</span>
+                Date <span style={{color: '#ff0505'}}>*</span>
               </label>
               <input
                 type="date"
@@ -324,7 +356,7 @@ const AutomationDashboard = () => {
             </div>
             <div>
               <label className="block text-sm font-bold text-gray-700 mb-3">
-                Time <span className="text-[#620000]">*</span>
+                Time <span style={{color: '#ff0505'}}>*</span>
               </label>
               <input
                 type="time"
