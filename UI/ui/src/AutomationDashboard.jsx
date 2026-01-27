@@ -435,16 +435,16 @@ const AutomationDashboard = () => {
       {/* Quota Cards */}
       <div className="quotaCards">
         <QuotaCard platform="Email" icon={Mail} data={quotaData.email}/>
-        <QuotaCard platform="Facebook" icon={Facebook} data={quotaData.facebook} color="bg-[#1877F2]" />
-        <QuotaCard platform="Instagram" icon={Instagram} data={quotaData.instagram} color="bg-gradient-to-br from-[#833AB4] via-[#FD1D1D] to-[#F77737]" />
-        <QuotaCard platform="LinkedIn" icon={Linkedin} data={quotaData.linkedin} color="bg-[#0A66C2]" />
+        <QuotaCard platform="Facebook" icon={Facebook} data={quotaData.facebook} />
+        <QuotaCard platform="Instagram" icon={Instagram} data={quotaData.instagram} />
+        <QuotaCard platform="LinkedIn" icon={Linkedin} data={quotaData.linkedin}/>
       </div>
 
       {/* Charts */}
-      <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
-        <h3 className="text-xl font-bold mb-6 flex items-center gap-3 text-gray-800">
-          <div className="p-2 bg-gradient-to-br from-[#620000] to-[#8B0000] rounded-lg">
-            <TrendingUp className="w-6 h-6 text-white" />
+      <div className="chartContainer">
+        <h3 className="chartTitle">
+          <div>
+            <TrendingUp style={{width: '1.5rem', height: '1.5rem', color: '#ffffff'}} />
           </div>
           Weekly Activity
         </h3>
@@ -469,10 +469,10 @@ const AutomationDashboard = () => {
       </div>
 
       {/* Recent Activity */}
-      <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
-        <h3 className="text-xl font-bold mb-6 flex items-center gap-3 text-gray-800">
-          <div className="p-2 bg-gradient-to-br from-[#620000] to-[#8B0000] rounded-lg">
-            <Activity className="w-6 h-6 text-white" />
+      <div className="recentActivityContainer">
+        <h3 className="recentActivityTitle">
+          <div>
+            <Activity style={{width: '1.5rem', height: '1.5rem', color: '#ffffff'}} />
           </div>
           Recent Activity
         </h3>

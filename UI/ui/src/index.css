@@ -535,3 +535,59 @@
   box-shadow: 0 6px 8px rgba(0,0,0,0.15);
   transform: translateY(-2px);
 }
+
+/*charts*/
+.chartContainer{
+  max-width: 600px;
+  margin-top: 2rem;
+  background-color: #dbdbdb;
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  border: 1px solid #aaaaaa;
+}
+.chartTitle{
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 2rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+.chartTitle div{
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 0.75rem;
+  background: linear-gradient(to right, #620000, #8B0000);
+  max-width: 75px;
+}
+
+/*Recent Activity*/
+.recentActivityContainer{
+  margin-top: 2rem;
+  background-color: #dbdbdb;
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  border: 1px solid #aaaaaa;
+}
+.recentActivityTitle{
+  font-size: 2rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+.recentActivityTitle div{
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 0.75rem;
+  background: linear-gradient(to right, #620000, #8B0000);
+  max-width: 75px;
+}
+
+.activityContainer{
+  max-height: 400px;
+  overflow-y: auto;
+}
