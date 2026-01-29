@@ -478,21 +478,21 @@ const AutomationDashboard = () => {
         </h3>
         <div className="space-y-3">
           {recentActivity.map((activity, idx) => (
-            <div key={idx} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-all border border-gray-100">
-              <div className="flex items-center gap-4">
-                <span className="text-sm text-gray-500 font-medium w-20">{activity.time}</span>
-                <span className={`px-4 py-2 rounded-lg text-sm font-bold ${
-                  activity.type === 'Email' ? 'bg-[#620000] text-white' :
-                  activity.type === 'Facebook' ? 'bg-[#1877F2] text-white' :
-                  activity.type === 'Instagram' ? 'bg-gradient-to-r from-[#833AB4] to-[#FD1D1D] text-white' :
-                  'bg-[#0A66C2] text-white'
+            <div key={idx} className="activityItem">
+              <div>
+                <span className="activityTime">{activity.time}</span>
+                <span className={`activityType ${
+                  activity.type === 'Email' ? 'Email' :
+                  activity.type === 'Facebook' ? 'Facebook' :
+                  activity.type === 'Instagram' ? 'Instagram' :
+                  'LinkedIn'
                 }`}>
                   {activity.type}
                 </span>
-                <span className="text-sm text-gray-700 font-medium">{activity.details}</span>
+                <span className="activityDescription">{activity.details}</span>
               </div>
-              <span className={`px-4 py-2 rounded-lg text-sm font-bold ${
-                activity.status === 'Success' ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700'
+              <span className={`activityStatus ${
+                activity.status === 'Success' ? 'success' : 'failure'
               }`}>
                 {activity.status}
               </span>
@@ -504,57 +504,57 @@ const AutomationDashboard = () => {
   );
 
   const ScheduleTab = () => (
-    <div className="space-y-6">
+    <div style={{padding: '1rem'}}>
       {/* Header */}
-      <div className="flex justify-between items-center">
+      <div className="headerContainer">
         <div>
-          <h2 className="text-3xl font-bold text-gray-900">Scheduled Posts</h2>
-          <p className="text-gray-600 mt-1">Manage your social media content calendar</p>
+          <h2 className="headerTitle">Scheduled Posts</h2>
+          <p className="headerSubtitle">Manage your social media content calendar</p>
         </div>
         <button
           onClick={() => setShowUploadModal(true)}
-          className="px-8 py-4 bg-gradient-to-r from-[#620000] to-[#8B0000] text-white rounded-xl hover:from-[#8B0000] hover:to-[#620000] font-bold flex items-center gap-3 shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
         >
-          <Plus className="w-6 h-6" />
+          <Plus style={{width: '1.5rem', height: '1.5rem', color: '#ffffff'}} />
           New Post
         </button>
       </div>
 
       {/* Scheduled Posts List */}
-      <div className="space-y-4">
+      <div style={{padding: '1rem'}} >
         {scheduledPosts.map(post => (
-          <div key={post.id} className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all p-6 border border-gray-100">
-            <div className="flex items-start justify-between">
-              <div className="flex gap-6 flex-1">
+          <div key={post.id} className="scheduledPostCard">
+            <div style={{padding: '1rem', display: 'flex', justifyContent: 'space-between'}}>
+              <div style={{display: 'flex', gap: '0.5rem', padding: '0.5rem'}}
+>
                 {/* Platform Icon */}
-                <div className={`p-4 rounded-xl ${getPlatformColor(post.platform)} shadow-md`}>
+                <div className={`Icon ${post.platform}`} style={getPlatformColor(post.platform)}>
                   {getPlatformIcon(post.platform)}
                 </div>
 
                 {/* Post Details */}
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-3">
-                    <h3 className="font-bold text-lg text-gray-900">{post.platform}</h3>
-                    <span className={`px-4 py-1 rounded-full text-sm font-bold ${
-                      post.status === 'Pending' ? 'bg-amber-100 text-amber-700' :
-                      post.status === 'Posted' ? 'bg-emerald-100 text-emerald-700' :
-                      'bg-red-100 text-red-700'
+                <div className="postDetails">
+                  <div className="postHeader">
+                    <h3>{post.platform}</h3>
+                    <span className={`statusBadge ${
+                      post.status === 'Pending' ? 'Pending' :
+                      post.status === 'Posted' ? 'Posted' :
+                      'Failed'
                     }`}>
                       {post.status}
                     </span>
                   </div>
-                  <p className="text-gray-700 mb-3 font-medium">{post.caption}</p>
+                  <p className="postCaption">{post.caption}</p>
                   {post.hashtags && (
-                    <p className="text-[#620000] text-sm mb-3 font-semibold">{post.hashtags}</p>
+                    <p className="postHashtags">{post.hashtags}</p>
                   )}
-                  <div className="flex items-center gap-6 text-sm text-gray-500">
-                    <span className="flex items-center gap-2 font-medium">
-                      <Calendar className="w-4 h-4" />
+                  <div className="postMeta">
+                    <span>
+                      <Calendar style={{width: '1rem', height: '1rem'}}/>
                       {post.date} at {post.time}
                     </span>
                     {post.media && (
-                      <span className="flex items-center gap-2 font-medium">
-                        <Upload className="w-4 h-4" />
+                      <span>
+                        <Upload style={{width:'1rem', height:'1rem'}}/>
                         {post.media}
                       </span>
                     )}
@@ -565,9 +565,9 @@ const AutomationDashboard = () => {
               {/* Actions */}
               <button
                 onClick={() => handleDeletePost(post.id)}
-                className="p-3 text-red-600 hover:bg-red-50 rounded-xl transition-all"
+                className="actionButton"
               >
-                <X className="w-6 h-6" />
+                <X style={{width: '1.5rem', height: '1.5rem'}}/>
               </button>
             </div>
           </div>
@@ -575,15 +575,14 @@ const AutomationDashboard = () => {
       </div>
 
       {scheduledPosts.length === 0 && (
-        <div className="text-center py-20 bg-white rounded-2xl shadow-lg border-2 border-dashed border-gray-300">
-          <Upload className="w-20 h-20 text-gray-400 mx-auto mb-6" />
-          <h3 className="text-2xl font-bold text-gray-900 mb-3">No scheduled posts</h3>
-          <p className="text-gray-600 mb-8 text-lg">Get started by scheduling your first post</p>
+        <div className="noScheduledPosts">
+          <Upload style={{width: '5rem', height: '5rem', color: '#9ca3af', marginLeft: 'auto', marginRight: 'auto', marginBottom: '1rem'}} />
+          <h3>No scheduled posts</h3>
+          <p>Get started by scheduling your first post</p>
           <button
             onClick={() => setShowUploadModal(true)}
-            className="px-8 py-4 bg-gradient-to-r from-[#620000] to-[#8B0000] text-white rounded-xl hover:from-[#8B0000] hover:to-[#620000] font-bold inline-flex items-center gap-3 shadow-lg hover:shadow-xl transition-all"
           >
-            <Plus className="w-6 h-6" />
+            <Plus style={{width: '1.5rem', height: '1.5rem', marginLeft: 'auto', marginRight: 'auto'}} />
             Schedule Post
           </button>
         </div>
@@ -592,26 +591,27 @@ const AutomationDashboard = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="appContainer">
       {/* Header */}
-      <header className="bg-gradient-to-r from-[#620000] to-[#8B0000] text-white shadow-2xl">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-white/20 rounded-xl backdrop-blur-sm">
-                <Activity className="w-8 h-8 text-white" />
+      <header>
+        <div 
+        className='headerContainer'>
+          <div className="headerContent">
+            <div className="headerLeft">
+              <div className="IconWrapper">
+                <Activity style={{color: 'white', width: '2rem', height: '2rem'}} />
               </div>
-              <div>
-                <h1 className="text-3xl font-bold">Sales Automation</h1>
-                <p className="text-sm text-white/90 mt-1">Multi-Platform Campaign Manager</p>
+              <div className='titleGroup'>
+                <h1>Sales Automation</h1>
+                <p>Multi-Platform Campaign Manager</p>
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              <button className="p-3 bg-white/20 rounded-xl hover:bg-white/30 transition-all backdrop-blur-sm">
-                <RefreshCw className="w-5 h-5" />
+            <div className="headerActions">
+              <button className="iconButton">
+                <RefreshCw style={{width:'2rem', height:'2rem'}}/>
               </button>
-              <button className="p-3 bg-white/20 rounded-xl hover:bg-white/30 transition-all backdrop-blur-sm">
-                <Download className="w-5 h-5" />
+              <button className="iconButton">
+                <Download style={{width:'2rem', height:'2rem'}}/>
               </button>
             </div>
           </div>

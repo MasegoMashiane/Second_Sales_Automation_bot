@@ -11,9 +11,9 @@
   box-shadow: 0 10px 15px 25px rgba(0,0,0,0.1),
               0 4px 6px -2px rgba(0,0,0,0.5);
 
-  margin-bottom: 2rem;
-  
+  margin-bottom: 1rem;
 }
+
 .status-card.running{
   background: linear-gradient(to right, #63ffae, #4bff69);
   border: 2px solid #c8fdeb;
@@ -563,6 +563,8 @@
   max-width: 75px;
 }
 
+
+
 /*Recent Activity*/
 .recentActivityContainer{
   margin-top: 2rem;
@@ -590,4 +592,362 @@
 .activityContainer{
   max-height: 400px;
   overflow-y: auto;
+}
+.activityItem{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  transition: all 200ms ease-in-out;
+}
+.activityItem:hover{
+  background-color: #bbbbbb;
+}
+.activityItem div{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.activityType{
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+}
+
+.activityType.Email{
+  background-color: #620000;
+  color: white;
+}
+.activityType.Facebook{
+  background-color: #1877F2;
+  color: white;
+}
+.activityType.Instagram{
+  background-image: linear-gradient(to right, #833AB4, #FD1D1D, #F77737);
+  color: white;
+}
+.activityType.LinkedIn{
+  background-color: #0A66C2;
+  color: white;
+}
+
+.activityTime{
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  color: #6b7280;
+  width: 5rem;
+}
+.activityDescription{
+  flex: 1;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: #374151;
+  margin-left: 1rem;
+}
+.activityStatus{
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+}
+.activityStatus.success{
+  background-color: #d1fae5;
+  color: #065f46;
+}
+.activityStatus.failure{
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+/* Header */
+.headerContainer{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+.headerTitle{
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+.headerSubtitle{
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #6b7280;
+}
+.headerContainer button{
+  display: flex;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  align-items: center;
+  gap: 0.75rem;
+  line-height: 1.5rem;
+  font-weight: bold;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: background-color 300ms ease-in-out,
+              box-shadow 300ms ease-in-out,
+              transform 300ms ease-in-out;
+  background: linear-gradient(to right, #620000, #da0000);
+  color: white;
+  cursor: pointer;
+}
+.headerContainer button:hover{
+  background: linear-gradient(to right, #da0000, #620000);
+  box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+  transform: translateY(-2px) scale(1.05);
+}
+
+
+/* Schedule posts list*/
+.scheduledPostCard{
+  margin-top: 2rem;
+  background-color: #dbdbdb;
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  border: 1px solid #aaaaaa;
+  transition: all 300ms ease-in-out;
+}
+.scheduledPostCard:hover{
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  transform: translateY(-5px);
+  background-color: #b8b8b8;
+}
+
+
+.Icon{
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.Icon.Facebook{
+  background-color: #1877F2;
+  color: white;
+}
+.Icon.Instagram{
+  background-image: linear-gradient(to right, #833AB4, #FD1D1D, #F77737);
+  color: white;
+}
+.Icon.LinkedIn{
+  background-color: #0A66C2;
+  color: white;
+}
+.Icon.Email{
+  background-color: #620000;
+  color: white;
+}
+
+.postDetails{
+  flex: 1;
+  margin-left: 1rem;
+}
+.postHeader{
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.postHeader h3{
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.statusBadge{
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+}
+.statusBadge.Pending{
+  background-color: #fef3c7;
+  color: #92400e;
+}
+.statusBadge.Posted{
+  background-color: #d1fae5;
+  color: #065f46;
+}
+.statusBadge.Failed{
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.postCaption{
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: #374151;
+  margin-bottom: 0.75rem;
+}
+.postHashtags{
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  color: #620000;
+}
+
+.postMeta{
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  color: #6b7280;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+.postMeta span{
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  font-size: medium;
+}
+
+/* Actions */
+.actionButton{
+  height: 3.75rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: bold;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: background-color 300ms ease-in-out,
+              box-shadow 300ms ease-in-out,
+              transform 300ms ease-in-out;
+  cursor: pointer;
+}
+.actionButton:hover{
+  box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
+  background-color: #a5a5a5;
+}
+
+.noScheduledPosts{
+  text-align: center;
+  padding: 5rem 1rem;
+  background-color: white;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  border: 2px dashed #cccccc;
+}
+.noScheduledPosts h3{
+  font-size: 2rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+.noScheduledPosts p{
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  color: #6b7280;
+}
+.noScheduledPosts button{
+  margin-top: 2rem;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: bold;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: background-color 300ms ease-in-out,
+              box-shadow 300ms ease-in-out,
+              transform 300ms ease-in-out;
+  background: linear-gradient(to right, #620000, #da0000);
+  color: white;
+  cursor: pointer;
+}
+.noScheduledPosts button:hover{
+  background: linear-gradient(to right, #da0000, #620000);
+  box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
+}
+
+/* App Header */
+.appContainer{
+  min-height: 100vh;
+  background: linear-gradient(to right, #620000, #8B0000);
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+header{
+  font-size: 1.5rem;
+  font-weight: bold;
+  background-color: linear-gradient(to right, #620000, #8B0000);
+  color: white;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+} 
+header:hover{
+  box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
+}
+.headerContainer{
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+.headerContent{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.headerLeft{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.IconWrapper{
+  padding: 0.75rem;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px); 
+}
+.titleGroup h1{
+  font-size: 1.875rem;
+  font-weight: 700;
+  line-height: 2.5rem;
+  margin: 0;
+}
+.titleGroup p{
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  color: rgba(255, 255, 255, 0.9)
+}
+.headerActions{
+  display: flex;
+  gap: 0.75rem;
+}
+.iconButton{
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 0.75rem;
+  border: none;
+  cursor: pointer;
+  color: white;
+  backdrop-filter: blur(8px);
+  transition: background 5s ease;
 }
